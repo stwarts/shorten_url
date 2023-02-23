@@ -10,6 +10,9 @@ class ShortenUrl::EncodeService
   end
 
   def call
+    found_record = ShortenUrl.find_by(original_url:, user_id:)
+    return found_record if found_record
+
     # user can be anonymous
     # TODO: handle RecordInvalid
     record = ShortenUrl.create!(original_url:, user_id:)

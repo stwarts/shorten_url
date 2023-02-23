@@ -54,5 +54,32 @@ RSpec.describe ShortenUrl::EncodeService, aggregate_failures: true do
         expect(created_record.alias).to eq('1234567890')
       end
     end
+
+    context 'when 2 users with 2 identical input URLs' do
+      let!(:existing_shorten_url) { ShortenUrl.create!(original_url:, user_id: the_other_user) }
+      let(:the_other_user) { SecureRandom.uuid }
+
+      it 'creates different record' do
+        expect { @record = service.call }.to change { ShortenUrl.count }.by(1)
+
+        expect(@record.original_url).to eq(existing_shorten_url.original_url)
+        expect(@record.id).not_to eq(existing_shorten_url.id)
+        expect(@record.alias).not_to eq(existing_shorten_url.alias)
+      end
+    end
+
+    context 'when 1 user with 2 identical input URL' do
+      let!(:existing_shorten_url) { ShortenUrl.create!(original_url:, user_id:) }
+
+      it 'does not create the new alias URL' do
+        expect { @record = service.call }.not_to change { ShortenUrl.count }
+
+        expect(@record.id).to eq(existing_shorten_url.id)
+      end
+
+      it 'does not change the current alias' do
+        expect { service.call }.not_to change { existing_shorten_url.alias }
+      end
+    end
   end
 end
