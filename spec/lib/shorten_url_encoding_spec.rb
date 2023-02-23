@@ -36,4 +36,40 @@ RSpec.describe ShortenUrlEncoding do
       end
     end
   end
+
+  describe '.decode' do
+    it 'decodes correctly' do
+      expect(described_class.decode('3f')).to eq(123)
+    end
+
+    context 'with zero' do
+      it 'decodes a number' do
+        expect(described_class.decode('0')).to eq(0)
+      end
+    end
+
+    context 'with extremely large number' do
+      it 'decodes a number' do
+        expect(described_class.decode('zzzzzzzz')).to eq((36**8) - 1)
+        expect(described_class.decode('zq0ao')).to eq(60_000_000)
+      end
+    end
+
+    context 'when number is out of range' do
+      it 'decodes with number' do
+        expect(described_class.decode('100000000')).to eq(36**8)
+        expect(described_class.decode('100000001')).to eq((36**8) + 1)
+        expect(described_class.decode('largenumber')).to eq(77_872_382_519_237_955)
+      end
+    end
+
+    context 'when exist a digit out of range' do
+      it 'raise error' do
+        expect { described_class.decode('A') }.to raise_error(ShortenUrlEncoding::DecodeError, 'Invalid digit: A')
+        expect { described_class.decode('Z') }.to raise_error(ShortenUrlEncoding::DecodeError, 'Invalid digit: Z')
+        expect { described_class.decode('1@') }.to raise_error(ShortenUrlEncoding::DecodeError, 'Invalid digit: @')
+        expect { described_class.decode('1$') }.to raise_error(ShortenUrlEncoding::DecodeError, 'Invalid digit: $')
+      end
+    end
+  end
 end
