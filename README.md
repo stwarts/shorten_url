@@ -1,24 +1,35 @@
-# README
+# Getting started
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Development
 
-Things you may want to cover:
+`bundle install`
 
-* Ruby version
+`rake db:migrate`
 
-* System dependencies
+`rails s`
 
-* Configuration
+## Run test
 
-* Database creation
+`rspec`
 
-* Database initialization
+## Demo app
 
-* How to run the test suite
+<https://radiant-wildwood-25315.herokuapp.com/>
 
-* Services (job queues, cache servers, search engines, etc.)
+# System dependencies
 
-* Deployment instructions
+Ruby: 3.2.1
 
-* ...
+Rails: 7.0.4
+
+Database: PostgreSQL 11
+
+Testing framework: RSpec
+
+# Deployment
+
+`git push heroku main`
+
+# More documentation
+
+Please checkout `./docs` folder
