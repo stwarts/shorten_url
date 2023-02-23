@@ -22,7 +22,7 @@ RSpec.describe EncodesController, type: :request do
         post '/encode', params: encode_params, headers: { 'anonymous_id' => 'anonymous_id' }
 
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['data']['alias']).not_to be_empty
+        expect(JSON.parse(response.body)['data'].fetch('alias')).not_to be_empty
       end
     end
   end
