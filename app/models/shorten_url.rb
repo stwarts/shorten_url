@@ -5,6 +5,7 @@ class ShortenUrl < ApplicationRecord
   ALIAS_PADDING = '0'
 
   validates :original_url, presence: true
+  validates :user_id, presence: true
 
   def self.format_alias(string)
     string.rjust(ALIAS_LENGTH, ALIAS_PADDING)
