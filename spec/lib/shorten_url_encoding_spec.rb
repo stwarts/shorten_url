@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe ShortenUrlEncoding do
   describe '.encode' do
-    it 'encodes a number' do
+    it 'encodes correctly' do
       expect(described_class.encode(123)).to eq('3f')
     end
 
@@ -15,13 +15,13 @@ RSpec.describe ShortenUrlEncoding do
     end
 
     context 'with zero' do
-      it 'encodes a number' do
+      it 'encodes correctly' do
         expect(described_class.encode(0)).to eq('0')
       end
     end
 
     context 'with extremely large number' do
-      it 'encodes a number' do
+      it 'encodes correctly' do
         expect(described_class.encode((36**8) - 1)).to eq('zzzzzzzz')
         expect(described_class.encode(60_000_000)).to eq('zq0ao')
       end
@@ -29,7 +29,7 @@ RSpec.describe ShortenUrlEncoding do
 
     context 'when number is out of range' do
       # This will give a longer output (could be more than 8), but does not crash the core functionality
-      it 'encodes wht number' do
+      it 'encodes correcly' do
         expect(described_class.encode(36**8)).to eq('100000000')
         expect(described_class.encode((36**8) + 1)).to eq('100000001')
         expect(described_class.encode(77_872_382_519_237_955)).to eq('largenumber')
@@ -43,20 +43,20 @@ RSpec.describe ShortenUrlEncoding do
     end
 
     context 'with zero' do
-      it 'decodes a number' do
+      it 'decodes correctly' do
         expect(described_class.decode('0')).to eq(0)
       end
     end
 
     context 'with extremely large number' do
-      it 'decodes a number' do
+      it 'decodes correctly' do
         expect(described_class.decode('zzzzzzzz')).to eq((36**8) - 1)
         expect(described_class.decode('zq0ao')).to eq(60_000_000)
       end
     end
 
     context 'when number is out of range' do
-      it 'decodes with number' do
+      it 'decodes correctly' do
         expect(described_class.decode('100000000')).to eq(36**8)
         expect(described_class.decode('100000001')).to eq((36**8) + 1)
         expect(described_class.decode('largenumber')).to eq(77_872_382_519_237_955)
