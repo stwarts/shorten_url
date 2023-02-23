@@ -10,11 +10,10 @@ class ShortenUrl::EncodeService
   end
 
   def call
+    # It's unnecessary to add index to original_url as the query will leverage index on column user_id
     found_record = ShortenUrl.find_by(original_url:, user_id:)
     return found_record if found_record
 
-    # user can be anonymous
-    # TODO: handle RecordInvalid
     record = ShortenUrl.create!(original_url:, user_id:)
 
     encoded_string = ::ShortenUrlEncoding.encode(record.id)
@@ -24,5 +23,7 @@ class ShortenUrl::EncodeService
     record.update_columns(alias: zero_padded_alias)
 
     record
+  rescue ActiveRecord::RecordInvalid => e
+    e.record
   end
 end

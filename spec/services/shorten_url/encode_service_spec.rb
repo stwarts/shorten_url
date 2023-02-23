@@ -21,7 +21,7 @@ RSpec.describe ShortenUrl::EncodeService, aggregate_failures: true do
       let(:original_url) { nil }
 
       it 'has error' do
-        expect { service.call }.to raise_error(ActiveRecord::RecordInvalid, /Original url can't be blank/)
+        expect(service.call.errors.full_messages).to include("Original url can't be blank")
       end
 
       it 'does not create new record' do
