@@ -5,12 +5,12 @@ class ApplicationController < ActionController::API
     head :not_found
   end
 
-  # do some thing to find user, if not found, use anonymous_id
+  # do some thing to find user, if not found, use Anonymous-Id
   def current_user
     anonymous_user
   end
 
   def anonymous_user
-    request.headers[:anonymous_id].presence
+    request.headers['Anonymous-Id'].presence
   end
 end

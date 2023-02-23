@@ -8,7 +8,7 @@ RSpec.describe EncodesController, type: :request do
       let(:encode_params) { {} }
 
       it 'returns error' do
-        post '/encode', params: encode_params, headers: { 'anonymous_id' => 'anonymous_id' }
+        post '/encode', params: encode_params, headers: { 'Anonymous-Id' => 'id' }
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(JSON.parse(response.body)['errors']).not_to be_empty
@@ -30,7 +30,7 @@ RSpec.describe EncodesController, type: :request do
       let(:encode_params) { { url: 'https://example.com' } }
 
       it 'creates a shorten version for the input URL' do
-        post '/encode', params: encode_params, headers: { 'anonymous_id' => 'anonymous_id' }
+        post '/encode', params: encode_params, headers: { 'Anonymous-Id' => 'id' }
 
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body)['data'].fetch('alias')).not_to be_empty

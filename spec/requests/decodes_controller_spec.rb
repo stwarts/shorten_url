@@ -8,7 +8,7 @@ RSpec.describe DecodesController, type: :request do
     let(:shorten_url) { 'QWERTY' }
     let(:current_user) { SecureRandom.uuid }
     let(:headers) do
-      { 'anonymous_id' => current_user }
+      { 'Anonymous-Id' => current_user }
     end
 
     let(:parsed_data) { JSON.parse(response.body)['data'] }
@@ -24,7 +24,7 @@ RSpec.describe DecodesController, type: :request do
         let(:other_user) { SecureRandom.uuid }
 
         it 'returns not_found error' do
-          post '/decode', params: decode_params, headers: { 'anonymous_id' => other_user }
+          post '/decode', params: decode_params, headers: { 'Anonymous-Id' => other_user }
 
           expect(response).to have_http_status(:not_found)
         end
