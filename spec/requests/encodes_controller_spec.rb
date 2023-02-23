@@ -33,7 +33,7 @@ RSpec.describe EncodesController, type: :request do
         post '/encode', params: encode_params, headers: { 'Anonymous-Id' => 'id' }
 
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['data'].fetch('alias')).not_to be_empty
+        expect(JSON.parse(response.body)['data'].fetch('alias')).to start_with('https://short.est/')
       end
     end
   end

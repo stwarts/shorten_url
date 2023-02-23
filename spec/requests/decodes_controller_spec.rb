@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe DecodesController, type: :request do
   describe 'POST /decode' do
     let(:decode_params) { { url: to_be_decoded_url } }
-    let(:shorten_url) { 'QWERTY' }
+    let!(:shorten_url) { ShortenUrl.create!(original_url: 'https://example.com', user_id: current_user, alias: 'QWERTY') }
     let(:current_user) { SecureRandom.uuid }
     let(:headers) do
       { 'Anonymous-Id' => current_user }
@@ -13,12 +13,8 @@ RSpec.describe DecodesController, type: :request do
 
     let(:parsed_data) { JSON.parse(response.body)['data'] }
 
-    before do
-      ShortenUrl.create!(original_url: 'https://example.com', user_id: current_user, alias: shorten_url)
-    end
-
     context 'when alias URL exists' do
-      let(:to_be_decoded_url) { shorten_url }
+      let(:to_be_decoded_url) { shorten_url.alias_with_host }
 
       context 'when user does not own the shorten URL' do
         let(:other_user) { SecureRandom.uuid }
