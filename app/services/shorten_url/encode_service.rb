@@ -14,11 +14,11 @@ class ShortenUrl::EncodeService
     # TODO: handle RecordInvalid
     record = ShortenUrl.create!(original_url:, user_id:)
 
-    alias_url = ::ShortenUrlEncoding.encode(record.id)
-    zero_padded_alias_url = format('%08d', alias_url)
+    encoded_string = ::ShortenUrlEncoding.encode(record.id)
+    zero_padded_alias = ShortenUrl.format_alias(encoded_string)
 
     # TODOL handle StatementInvalid
-    record.update_columns(alias: zero_padded_alias_url)
+    record.update_columns(alias: zero_padded_alias)
 
     record
   end

@@ -35,12 +35,12 @@ RSpec.describe ShortenUrl::EncodeService, aggregate_failures: true do
 
     context "when the encoded length is less than #{ShortenUrl::ALIAS_LENGTH}" do
       before do
-        allow(ShortenUrlEncoding).to receive(:encode).and_return('0')
+        allow(ShortenUrlEncoding).to receive(:encode).and_return('a')
       end
 
       it 'paddings to cover missing digits' do
         created_record = service.call
-        expect(created_record.alias).to eq('00000000')
+        expect(created_record.alias).to eq('0000000a')
       end
     end
 
