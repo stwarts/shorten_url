@@ -28,7 +28,13 @@ Testing framework: RSpec
 
 # Deployment
 
+1. Push new changes
+
 `git push heroku main`
+
+2. Migrate the database
+
+`heroku run rake db:migrate`
 
 # More documentation
 

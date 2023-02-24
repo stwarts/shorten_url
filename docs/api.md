@@ -11,7 +11,7 @@
 Example:
 
 ```bash
-curl -X POST localhost:3000/encode \
+curl -X POST https://radiant-wildwood-25315.herokuapp.com/encode \
   -d '{"url": "https://radiant-wildwood-25315.herokuapp.com/"}' \
   -H "Content-Type: application/json" \
   -H "Anonymous-Id: cuong-nguyen"
@@ -64,7 +64,7 @@ Error messages will be present in `errors` field if any
 |url|true|
 
 ```bash
-curl -X POST localhost:3000/decode \
+curl -X POST https://radiant-wildwood-25315.herokuapp.com/decode \
   -d '{"url": "00000002"}' \
   -H "Content-Type: application/json"
 ```
