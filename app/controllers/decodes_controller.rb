@@ -4,7 +4,7 @@ class DecodesController < ApplicationController
   def create
     raise ActiveRecord::RecordNotFound if params[:url].blank?
 
-    shorten_url = ShortenUrl.find_by!(alias: parse_alias_url, user_id: current_user)
+    shorten_url = ShortenUrl.find_by!(alias: parse_alias_url)
 
     render json: { data: shorten_url }
   end

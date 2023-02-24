@@ -19,10 +19,11 @@ RSpec.describe DecodesController, type: :request do
       context 'when user does not own the shorten URL' do
         let(:other_user) { SecureRandom.uuid }
 
-        it 'returns not_found error' do
-          post '/decode', params: decode_params, headers: { 'Anonymous-Id' => other_user }
+        it 'returns success' do
+          post('/decode', params: decode_params, headers:)
 
-          expect(response).to have_http_status(:not_found)
+          expect(response).to have_http_status(:ok)
+          expect(parsed_data.fetch('original_url')).to eq('https://example.com')
         end
       end
 
