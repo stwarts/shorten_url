@@ -15,3 +15,9 @@ The system will run normally when the encoded number out of this range (in 470 y
 ## Base encoding
 
 36, lowercase alphanumeric characters 0-9, a-z
+
+# Inappropriate encoded strings
+
+The encoded could contain bad words, e.g: the F words, the N word, bichhoe, etc
+
+-> We could use a list of bad words checking this before saving the shorten version

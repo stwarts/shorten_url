@@ -29,3 +29,15 @@ The /decode API could run to the same problem.
 
 1. Rate limit for anonymous users and signed in user.
 2. Block IP address.
+
+# Redirection flood
+
+```
+long_url_a -> short.est/1
+short.est/1 -> short.est/2
+short.est/2 -> short.est/3
+...
+short.est/1000 -> short.est/10001
+```
+
+This could be a real problem if we provide redirecting service.
